@@ -53,7 +53,27 @@ lconsole.choice = (str,default) ->
   return false if choice\find '^n'
   return true if choice\find '^y'
 
+lconsole.numchoice = (str,tblchoice) ->
+  result = ''
 
+  for i,v in pairs tblchoice
+    print color "  (%{green}#{i}%{reset}) %{bright white}#{v.text}"
+
+  tobar!
+  
+  io.write color "\n%{bright green}?%{reset} #{str}: "
+  choice = io.read!
+
+  if choice\find('^%D+$') or choice == ''
+    print color '%{bright red}\n!!!INVALID CHOICE!!!\n'
+
+    toblock!
+
+    os.exit 1
+
+  toblock!
+
+  tblchoice[tonumber(choice)].code()
   
 
 return lconsole

@@ -1,20 +1,25 @@
-console = require 'lconsole'
+sleep = (n) ->
+  os.execute "sleep #{n}"
 
-choice = console.choice 'Are u going to run this script? '
+spin = {
+  '.','..','...'
+}
 
-os.exit! if not choice
+round = 1
+spinuntil = 0
 
-print('')
+while true
+  break if spinuntil == 10
 
-name = console.input 'What\'s ur name? '
+  print "#{spin[round]} Test#{string.rep(' ',#'test')}"
+  sleep 1
+  print "\27[2A\27[2K\27[0G"
 
-print('')
-
-switch name\lower!
-  when 'gay'
-    console.alert '>:('
-  when 'sus'
-    console.warn ':sus:'
+  if round >= 3
+    round = 1
   else
-    console.log "Hi #{name}"
+    round += 1
+
+  spinuntil += 1
+
 
